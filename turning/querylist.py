@@ -1,4 +1,11 @@
-def get_fanuc_query(database, table, year, month, day):
+def get_dates_query(database, table, column):
+    query =  f"""SELECT DISTINCT CONVERT(varchar(10), {column}, 111) as dates
+    FROM [{database}].[dbo].[{table}] order by dates
+    """
+    return query
+
+def get_fanuc_query(database, table, date):
+    year, month, day = date.split('-')
     fanuc = f"""
     SELECT [TableIndex]
     ,[TimeLogged]
@@ -46,7 +53,8 @@ def get_fanuc_query(database, table, year, month, day):
     """
     return fanuc
 
-def get_vibration_query(database, table, year, month, day):
+def get_vibration_query(database, table, date):
+    year, month, day = date.split('-')
     vib = f"""SELECT * FROM {database}.[dbo].{table}
     WHERE YEAR(Record_Collection_Time)={year} AND
     MONTH(Record_Collection_Time)={month} AND
@@ -55,7 +63,8 @@ def get_vibration_query(database, table, year, month, day):
     """
     return vib
 
-def get_fanuc_query_v2(database, table, year, month, day):
+def get_fanuc_query_v2(database, table, date):
+    year, month, day = date.split('-')
     fanuc = f"""
     SELECT [TableIndex]
       ,[TimeLogged]
