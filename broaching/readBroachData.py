@@ -4,25 +4,20 @@ import numpy as np
 import matplotlib.pyplot as plt
 from datetime import datetime
 
-conn = pyodbc.connect(
-    'Driver={ODBC Driver 18 for SQL Server};Server=localhost;Database=BR607;Trusted_Connection=yes; TrustServerCertificate=yes'
-)
-cursor = conn.cursor()
-#cursor.execute('SELECT * FROM dbo.Broach_Data')
+def readData():
+    conn = pyodbc.connect(
+        'Driver={ODBC Driver 18 for SQL Server};Server=localhost;Database=BR607;Trusted_Connection=yes; TrustServerCertificate=yes'
+    )
+    cursor = conn.cursor()
+    #cursor.execute('SELECT * FROM dbo.Broach_Data')
 
-# for i in cursor:
-#     print(i)
+    # for i in cursor:
+    #     print(i)
 
 
-df = pd.read_sql_query('SELECT * FROM dbo.Broach_Data', conn)
-df.rename(columns = {'Speed L/m ':'Speed_Lm', 'Pressure Bar':'Pressure_Bar', 'Distance mm':'Distance_mm'}, inplace = True)
-
-numDates = pd.to_datetime(df['Record_Collection_Time']).dt.date.nunique()
-print(numDates)
-listDates = []
-
-listDates = pd.to_datetime(df['Record_Collection_Time']).dt.date.unique().tolist()
-print(listDates)
+    df = pd.read_sql_query('SELECT * FROM BR607_12April.dbo.Broach_Data_New', conn)
+    df.rename(columns = {'Speed L/m ':'Speed_Lm', 'Pressure Bar':'Pressure_Bar', 'Distance mm':'Distance_mm'}, inplace = True)
+    return df
     
 #FIXME
 def resampledBySec():
@@ -107,6 +102,11 @@ def cycleAndDayAttempt2():
 
 
 
+df = readData()
+numDates = pd.to_datetime(df['Record_Collection_Time']).dt.date.nunique()
+print(numDates)
+listDates = []
 
-
+listDates = pd.to_datetime(df['Record_Collection_Time']).dt.date.unique().tolist()
+print(listDates)
 #groupedByCycleAndDay()
