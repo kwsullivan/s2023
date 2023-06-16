@@ -69,51 +69,51 @@ for i in range(0, len(weeks)):
     y = bx['Distance']
     z = bx['Feedback Pressure']
 
-    # #Applying mask for outliers
-    # pcd=np.column_stack((x,y,z))
-    # mask=z>np.mean(z)
-    # spatial_query=pcd[z>np.mean(z)]
+    #Applying mask for outliers
+    pcd=np.column_stack((x,y,z))
+    mask=z>np.mean(z)
+    spatial_query=pcd[z>np.mean(z)]
 
-#     #plotting the results 3D
-#     ax = plt.axes(projection='3d')
-#     ax.scatter(x[mask], y[mask], z[mask], s=0.1)
-# #    plt.show()
+    #plotting the results 3D
+    ax = plt.axes(projection='3d')
+    ax.scatter(x[mask], y[mask], z[mask], s=0.1)
+#    plt.show()
 
     
-#     X=np.column_stack((x[mask], y[mask], z[mask]))
-#     # wcss = [] 
-#     # for i in range(1, 20):
-#     #     kmeans = KMeans(n_clusters = i, init = 'k-means++', random_state = 42)#42 is arbitary here (the asnwer to all of life's questions)
-#     #     kmeans.fit(X)
-#     #     wcss.append(kmeans.inertia_)
+    X=np.column_stack((x[mask], y[mask], z[mask]))
+    # wcss = [] 
+    # for i in range(1, 20):
+    #     kmeans = KMeans(n_clusters = i, init = 'k-means++', random_state = 42)#42 is arbitary here (the asnwer to all of life's questions)
+    #     kmeans.fit(X)
+    #     wcss.append(kmeans.inertia_)
 
-#     # plt.plot(range(1, 20), wcss)
-#     # plt.xlabel('Number of clusters')
-#     # plt.ylabel('WCSS') 
-#     # plt.show()
+    # plt.plot(range(1, 20), wcss)
+    # plt.xlabel('Number of clusters')
+    # plt.ylabel('WCSS') 
+    # plt.show()
 
-#     kmeans = KMeans(n_clusters=3).fit(X)
-#     fig = plt.figure()
-#     ax = fig.gca(projection='3d')
-#     ax.scatter(x[mask], y[mask],z[mask],  c=kmeans.labels_)
-
-
-#     #plt.show()
+    kmeans = KMeans(n_clusters=3).fit(X)
+    fig = plt.figure()
+    ax = fig.gca(projection='3d')
+    ax.scatter(x[mask], y[mask],z[mask],  c=kmeans.labels_)
 
 
+    #plt.show()
 
-#     #PLOTTING
-#     # bx = distances.rolling(100, win_type='gaussian').mean(std=distances.std().mean()).plot(x='counts_d_id', y=grouping, color='black', figsize=(20, 10), label=grouping)
-#     # plt.fill_between(distances['counts_d_id'], distances['minn'], distances['maxx'], color='blue', alpha = 0.2)
-#     # # plt.yticks(np.arange(0, 1, step=0.1))
-#     # daymin = distances['minn'].min()
-#     # daymax = distances['maxx'].max()
-#     # plt.axhline(y=distances[grouping].mean(), color='green', linestyle=':')
-#     # plt.text(.01, .99, f"Mean:{distances[grouping].mean()}", ha='left', va='top', transform=plt.gca().transAxes)
-#     ax.legend()
+
+
+    #PLOTTING
+    # bx = distances.rolling(100, win_type='gaussian').mean(std=distances.std().mean()).plot(x='counts_d_id', y=grouping, color='black', figsize=(20, 10), label=grouping)
+    # plt.fill_between(distances['counts_d_id'], distances['minn'], distances['maxx'], color='blue', alpha = 0.2)
+    # # plt.yticks(np.arange(0, 1, step=0.1))
+    # daymin = distances['minn'].min()
+    # daymax = distances['maxx'].max()
+    # plt.axhline(y=distances[grouping].mean(), color='green', linestyle=':')
+    # plt.text(.01, .99, f"Mean:{distances[grouping].mean()}", ha='left', va='top', transform=plt.gca().transAxes)
+    ax.legend()
     
-#     ax.set_xlabel(x)
-#     ax.set_ylabel(y) 
-#     ax.set_zlabel(z)
-#     plt.title(f'{weeks[i]}-{weeks[i+1]}')
-#     plt.savefig(f'./broaching/clustering/weeks/{grouping}/{weeks[i]}.png')
+    ax.set_xlabel(x)
+    ax.set_ylabel(y) 
+    ax.set_zlabel(z)
+    plt.title(f'{weeks[i]}-{weeks[i+1]}')
+    plt.savefig(f'./broaching/clustering/weeks/{grouping}/{weeks[i]}.png')
