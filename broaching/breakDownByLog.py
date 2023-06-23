@@ -32,14 +32,17 @@ def getCycleDuration(df):
 
 
 def getByLog():
-    loggedChanges =['2023-01-31', '2023-02-01','2023-02-15', '2023-02-16', '2023-02-17', '2023-02-22', '2023-02-27','2023-03-16']
+    toBeReturned = pd.DataFrame()
+    loggedChanges =['2023-01-31', '2023-02-01','2023-02-15', '2023-02-16']#,'2023-02-17', '2023-02-22', '2023-02-27','2023-03-16']
     for i in range(0, len(loggedChanges)-1):
-        
         print("DATE RANGE: ",loggedChanges[i], "-", loggedChanges[i+1])
         df = readData(loggedChanges[i], loggedChanges[i+1])
         print(df)
-        getCycleDuration(df)
+        toBeReturned = pd.concat([toBeReturned, df])
+        #getCycleDuration(df)
+    return toBeReturned
         
-getByLog()
+#df = getByLog()
+#print(df)
 #readData()
 
